@@ -48,8 +48,9 @@ app.prepare().then(() => {
   server.use(session(sess));
 
   server.get('/', async (req, res) => {
-    const user = await User.findOne({slug: 'team-builder-book'})
-    app.render(req, res, '/', { user })
+    const user = await User.findOne({ slug: 'team-builder-book' });
+    req.user = user;
+    app.render(req, res, '/');
   });
 
   server.get('*', (req, res) => handle(req, res));

@@ -1,10 +1,16 @@
-import CssBaseline from "@material-ui/core/CssBaseline";
-import { ThemeProvider } from "@material-ui/styles";
-import React from "react";
-import App from "next/app";
-import Header from "../components/Header";
+import CssBaseline from '@material-ui/core/CssBaseline';
+import { ThemeProvider } from '@material-ui/styles';
+import React from 'react';
+import App from 'next/app';
+import Router from 'next/router';
+import NProgress from 'nprogress';
+import Header from '../components/Header';
 
-import { theme } from "../lib/theme";
+import { theme } from '../lib/theme';
+
+Router.onRouteChangeStart = () => NProgress.start();
+Router.onRouteChangeComplete = () => NProgress.done();
+Router.onRouteChangeError = () => NProgress.done();
 
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
@@ -18,7 +24,7 @@ class MyApp extends App {
   }
 
   componentDidMount() {
-    const jssStyles = document.querySelector("#jss-server-side");
+    const jssStyles = document.querySelector('#jss-server-side');
     if (jssStyles && jssStyles.parentNode) {
       jssStyles.parentNode.removeChild(jssStyles);
     }
